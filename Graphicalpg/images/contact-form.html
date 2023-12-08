@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dennis Selfinger's Contact Form</title>
+  
+</head>
+<body>
+    <div class="contact-form">
+        <form id="userForm" action="PHP/contact.php" method="post">
+            <label for="username">Name/Nickname:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="company">Company:</label>
+            <input type="text" id="company" name="company">
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="comment">Comment:</label>
+            <textarea id="comment" name="comment" required></textarea>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <div class="display-comments">
+        <h2>Comments:</h2>
+        <ul id="commentsList"></ul>
+    </div>
+    <div class="code">
+        <h1><strong>PHP CODE</strong></h1>
+    </div>
+    <h1>PHP CODE</h1>
+
+    <script src="scriptmain/contact.js"></script>
+</body>
+</html>
+<h1>PHP CODE</h1>
+<h3 class="php">
+    ?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST") { <br>
+        $name = strip_tags(trim($_POST["username"]));<br>
+        $company = strip_tags(trim($_POST["company"]));<br>
+        $email = filter_var(trim($_POST["email"]), FILTER_SANITIZE_EMAIL);<br>
+        $comment = trim($_POST["comment"]);<br>
+    
+       <small> // Check that data was sent to the mailer.</small>
+        if ( empty($name) OR empty($comment) OR !filter_var($email, FILTER_VALIDATE_EMAIL)) {<br>
+            // Set a 400 (bad request) response code and exit.<br>
+            http_response_code(400);<br>
+            echo "Oops! There was a problem with your submission. Please complete the form and try again.";<br>
+            exit;<br>
+        }<br>
+    
+        // Set the recipient email address.<br>
+        $recipient = "your-email@example.com"; // <-- Set your email here<br>
+    
+        // Set the email subject.<br>
+        $subject = "New contact from $name";<br>
+    
+        // Build the email content.<br>
+        $email_content = "Name: $name\n";<br>
+        $email_content .= "Company: $company\n";<br>
+        $email_content .= "Email: $email\n\n";<br>
+        $email_content .= "Comment:\n$comment\n";<br>
+    
+        // Build the email headers.<br>
+        $email_headers = "From: $name <$email>";<br>
+    
+        // Send the email.<br>
+        if (mail($recipient, $subject, $email_content, $email_headers)) {<br>
+            // Set a 200 (okay) response code.<br>
+            http_response_code(200);
+            echo "Thank You! Your message has been sent.";
+        } else {<br>
+            // Set a 500 (internal server error) response code.<br>
+            http_response_code(500);<br>
+            echo "Oops! Something went wrong and we couldn't send your message.";
+        }<br>
+    
+    } else {<br>
+        // Not a POST request, set a 403 (forbidden) response code.<br>
+        http_response_code(403);<br>
+        echo "There was a problem with your submission, please try again.";<br>
+    }<br>
+    ?> 
+    </h3>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #0a0606;
+}
+
+.contact-form {
+    margin-bottom: 30px;
+    background-color: #ed7575;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    display: block;
+    margin-bottom: 12px;
+    font-weight: bold;
+}
+
+input[type="text"], input[type="email"] {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+textarea {
+    width: 100%;
+    padding: 15px;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    height: 150px; /* Increased height */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical; /* Allow vertical resizing only */
+}
+
+button {
+    padding: 12px 25px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+.display-comments h2 {
+    margin-top: 0;
+}
+
+.display-comments ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.display-comments li {
+    padding: 15px;
+    border-bottom: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.display-comments li:hover {
+    background-color: #f9f9f9;
+}
+.code {
+    color: #f9f9f9;
+}
+.php {
+    color: white;
+}
+</style>

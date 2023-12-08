@@ -1,0 +1,84 @@
+/* Clock styles */
+body {
+    background-color: rgb(219, 80, 216);
+}
+#clockContainer {
+    display: flex;
+    justify-content: flex-start; 
+    align-items: center;
+    height: 1000px;
+    margin-top: -70px;
+    margin-left: 670px;
+    box-shadow: #00ff88;
+    text-shadow: 10px 10px 3px rgba(7, 29, 108, 0.5);
+    transition: all 0.3s ease;
+   
+
+}
+
+.clockFace {
+    position: relative;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    border: 7px solid #333;
+    background-color: #fff;
+}
+
+.hand {
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform-origin: 50% 100%;
+    transform: rotate(90deg);
+    z-index: 1;
+}
+
+.hour {
+    width: 12px;
+    height: 150px;
+    background: blue;
+}
+
+.minute {
+    width: 6px;
+    height: 210px;
+    background: blue;
+}
+
+.second {
+    width: 3px;
+    height: 240px;
+    background: blue;
+}
+
+.number {
+    position: absolute;
+    width: 24px;
+    text-align: center;
+    font-size: 24px;
+}
+
+.container mt-5 {
+    background-color: #041b37;
+}
+
+.form-group {
+    margin-bottom: 30px; 
+}
+
+#leftImage {
+    margin-right: 20px; 
+    height: 200px; 
+    width: auto; 
+}
+
+#customImageID {
+    margin-right: 20px;
+    margin-left: 0px;
+    margin-top: 20px;
+    height: 200px; 
+    width: auto; 
+    box-shadow: 0 15px 25px  rgba(199, 114, 114, 0.3);
+    border-radius: 10px;
+}
